@@ -19,8 +19,9 @@ class Node{
 
 class DoublyLinkedList{
     constructor(val){
-        this.val = val
-        this.next = null;      
+        this.head = null;
+        this.tail = null;
+        this.length = 0;      
     }
     push(val){
         var node = new Node(val);
@@ -35,7 +36,31 @@ class DoublyLinkedList{
         this.length++;
         return this;
     }
-    remove(){
-        
+    remove(index){
+      let node;
+      let counter;
+      if(index > this.length || index < 0) {
+        return undefined;
+      } else if(index > this.length / 2) {
+        node = this.tail;
+        counter = this.length - 1;
+        while(counter !== index) {
+          node = node.prev;
+          counter--;
+        }
+      } else {
+        node = this.head;
+        counter = 0;
+        while(counter !== index) {
+            node = node.next;
+            counter++;
+        }
+      }
+      node.prev.next = node.next;
+      node.next.prev = node.prev;
+      node.prev = null;
+      node.next = null;
+      this.length--;
+      return node;
     }
 }
